@@ -1,56 +1,80 @@
-# V25_Semester_Prosjekt
-Design og utvikling av en prototype for en avstandsmåler som brukes som ryggesensor i bil
+# 🚗 Semesterprosjekt – Ryggesensor Prototype
 
-Arduino 1 (Hovedenhet) "M1":
-- TO DO: Viser avstand på en LCD-skjerm ved aktivert rygge sensor
-            Avstandsvisning 0x9 - 0x15 for høyre visning, en x = 20 cm
-            |          xxxxxxx | Høyre avstand er under 20 cm
+Et Arduino-basert system utviklet som semesterprosjekt for å simulere en ryggesensor for bil, bestående av to Arduino-enheter: en hovedenhet (M1) og en slaveenhet (S1). Systemet benytter ultralydsensorer, LCD-skjerm, LED-indikatorer, UART-kommunikasjon og sanntidsklokke for å gi sjåføren informasjon om avstander, klokkeslett og hengerstatus.
 
-            Avstandsvisning 0x0 - 0x6 for venstre visning, en x = 20 cm
-            | xxxxxxx          | Venstre avstand under 20 cm
+Semesterprosjektet omhandler utviklingen av en ryggesensor-prototype for bil, bestående av to Arduino-enheter: en hovedenhet (M1) og en slaveenhet (S1). 
+Slaveenheten måler avstand til hindringer på høyre og venstre side med ultralydsensorer og sender data via UART til hovedenheten, 
+som viser informasjonen på en LCD-skjerm og gir visuelle varsler med LED-lys. Systemet aktiveres automatisk ved reversgir eller manuelt via en knapp, og 
+deaktiveres hvis henger er tilkoblet. Brukeren får informasjon om både avstand og klokkeslett, 
+og systemet benytter sanntidsklokke og temperaturmåling for utvidet funksjonalitet.
 
-            | xxxxxxx  xxxxxxx | Begge avstandene er under 20 cm
+---
 
-            Bitvisning 16x2 LCD skjerm
-            | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 | (Y = 0)
-            | 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 | (Y = 1)
+## 📦 Innhold
 
-            Avlesning av høyre 1x13 - 1x15 og enhet vising på 1x7 - 1x8
-            |          xxxxxxx | Høyre avstand er under 20 cm
-            |        cm    000 | Høyre avstand er under 20 cm
-            
-            Avlesning av venstre 1x00 - 1x2 og enhet vising på 1x7 - 1x8
-            | xxxxxxx          | Venstre avstand under 20 cm
-            | 000    cm        | Venstre avstand under 20 cm
+- `M1_Master/` – Kode for hovedenheten (M1)
+- `S1_Slave/` – Kode for slaveenheten (S1)
+- `images/` – Illustrasjoner og skjemaer (valgfritt)
+- `doc/` – Teknisk dokumentasjon (valgfritt)
+- `README.md` – Denne filen
+- `LICENSE` – Valgfri lisens (f.eks. MIT eller GPL)
 
-            LCD visning 16x2         
-            | xxxxxxx  xxxxxxx | Begge avstandene er under 20 cm
-            | 000    cm    000 | Begge avstandene er 0 cm
+---
 
-            Klokkeslett i 0x0 - 0x4 hh:mm og temperatur.
-            | hh:mm      exx*C | hh = time, mm = minut, e = fortegn, xx = temperatur
-            |                  | 
-        
-- TO DO: Lyd ved 50 cm avstand og stigene lyd til 0 cm.
-- TO DO: PDC Knapp med LED indikasjon når PDC er aktivert. Knapp kan skru av PDC selv om gir spaken er i revers.
-- TO DO: Gir spake sensor for revers, aktiverer PDC.
-- DONE: Bruker LED-lys (Rød < 50cm, 50cm =< Gul >= 100cm,100cm =< Grønn >= 150cm) for visuell varsling basert på avstand
+## 🔧 Systemoversikt
 
-Arduino 2 (Slaveenhet) "S1":
-- Måler avstand til hindringer med 2 x HC-SR04 ultralydsensor.
-          Høyre 
-          Venstre
-- DONE: Sender måledata til Arduino 1 - Master ehneten via UART
-- TO DO: Hengerfeste sensor for disabling av ryggesensor.
- 
-Kode struktur:
+**Hovedenhet (M1):**
+- Mottar avstandsinformasjon via UART
+- Viser info på LCD (klokke, dato, eller avstand)
+- Styrer LED-varslinger basert på avstand:
+  - Rød: < 50 cm
+  - Gul: 50–99 cm
+  - Grønn: 100–149 cm
+- Aktiveres via parkeringsknapp eller reverssignal
+- Deaktiveres automatisk hvis henger er tilkoblet
 
-- Master.ino
-    - Communication.ino
-        - Mottar data fra slave via serial protokol.
-            - Avstandsmålinger; Høyre , Venstre
-    - Distance_Indication_LED.ino
-        - Kaller opp communication og avstand målingene som blir mottatt fra slave enhet.
-            - Styrer LED lys bastert på avstandskriteriner.
-    - ID_module.ino
-        - ID visning på matric visning M1 eller S1 osv ved oppstart.
+**Slaveenhet (S1):**
+- Leser avstand med to HC-SR04 ultralydsensorer
+- Sender avstander + hengerstatus til M1
+- Detekterer tilkoblet henger via inngangspin
+- Planlagt støtte: Temperaturmåler + buzzer (TO DO)
+
+---
+
+## 🛠️ Maskinvarekrav
+
+- 2x Arduino (f.eks. Nano 33 BLE Sense)
+- 2x HC-SR04 ultralydsensorer
+- 16x2 LCD (koblet til M1)
+- 3x LED (rød, gul, grønn)
+- 1x Buzzer (koblet til S1)
+- Revers-signal (bryter eller sensor)
+- Parkeringsknapp (PTC eller vanlig knapp)
+- Hengerdeteksjon (bryter eller kabel)
+- UART (TX/RX) mellom M1 og S1
+
+---
+
+## ⚙️ Oppsett og tilkobling
+
+| Komponent        | M1 Pin 	| S1 Pin 		|
+|------------------|------------|-----------------------|
+| LCD RS           | 7      	| –      		|
+| LCD E            | 6      	| –      		|
+| LCD D4-D7        | 5–2    	| –      		|
+| LED Rød/Gul/Grønn| 13/12/11	| –      		|
+| Parking LED      | 10     	| –      		|
+| Parking Button   | 9      	| –      		|
+| Revers Signal    | 8      	| –      		|
+| UART RX/TX       | Serial1	| Serial1		|
+| HC-SR04 (venstre)| –      	| Trig: 3 / Echo: 2 	|
+| HC-SR04 (høyre)  | –      	| Trig: 5 / Echo: 4 	|
+| Henger-signal    | –      	| 6      		|
+| Buzzer           | –      	| 7      		|
+
+---
+
+## 🧪 Eksempel på UART-data
+
+```txt
+R:121 L:98 T:0 P:0
