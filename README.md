@@ -1,12 +1,12 @@
 # 🚗 Semesterprosjekt – Ryggesensor Prototype
 
-Et Arduino-basert system utviklet som semesterprosjekt for å simulere en ryggesensor for bil, bestående av to Arduino-enheter: en hovedenhet (M1) og en slaveenhet (S1). Systemet benytter ultralydsensorer, LCD-skjerm, LED-indikatorer, UART-kommunikasjon og sanntidsklokke for å gi sjåføren informasjon om avstander, klokkeslett og hengerstatus.
+Semesterprosjektet består av utviklingen av en Arduino-basert prototype som simulerer en ryggesensor for bil. Systemet er bygget opp av to Arduino-enheter: en hovedenhet (M1) og en slaveenhet (S1), som kommuniserer med hverandre via UART.
 
-Semesterprosjektet omhandler utviklingen av en ryggesensor-prototype for bil, bestående av to Arduino-enheter: en hovedenhet (M1) og en slaveenhet (S1). 
-Slaveenheten måler avstand til hindringer på høyre og venstre side med ultralydsensorer og sender data via UART til hovedenheten, 
-som viser informasjonen på en LCD-skjerm og gir visuelle varsler med LED-lys. Systemet aktiveres automatisk ved reversgir eller manuelt via en knapp, og 
-deaktiveres hvis henger er tilkoblet. Brukeren får informasjon om både avstand og klokkeslett, 
-og systemet benytter sanntidsklokke og temperaturmåling for utvidet funksjonalitet.
+Slaveenheten er ansvarlig for å måle avstand til hindringer på venstre og høyre side ved hjelp av ultralydsensorer. Disse målingene sendes til hovedenheten, som tolker dataene og viser relevant informasjon på en LCD-skjerm. I tillegg benyttes LED-indikatorer for å gi sjåføren visuelle varsler om avstanden til hindringer.
+
+Systemet aktiveres enten automatisk når bilen settes i revers, eller manuelt ved hjelp av en knapp. Hvis en tilhenger er tilkoblet, deaktiveres systemet for å unngå feilaktige varsler.
+
+For å gi føreren mer kontekstuell informasjon, inkluderer systemet også en sanntidsklokke (RTC) for visning av klokkeslett, samt funksjonalitet for temperaturmåling. Dette gir en mer komplett og brukervennlig opplevelse, og demonstrerer hvordan mikrokontrollerbaserte systemer kan brukes til å forbedre sikkerheten og informasjonstilgangen i kjøretøy.
 
 ---
 
@@ -58,7 +58,7 @@ og systemet benytter sanntidsklokke og temperaturmåling for utvidet funksjonali
 ## ⚙️ Oppsett og tilkobling
 
 | Komponent        | M1 Pin 	| S1 Pin 		|
-|------------------|------------|-----------------------|
+|------------------|----------|----------------------|
 | LCD RS           | 7      	| –      		|
 | LCD E            | 6      	| –      		|
 | LCD D4-D7        | 5–2    	| –      		|
@@ -66,7 +66,7 @@ og systemet benytter sanntidsklokke og temperaturmåling for utvidet funksjonali
 | Parking LED      | 10     	| –      		|
 | Parking Button   | 9      	| –      		|
 | Revers Signal    | 8      	| –      		|
-| UART RX/TX       | Serial1	| Serial1		|
+| UART RX/TX       | 0/1    	| 0/1    		|
 | HC-SR04 (venstre)| –      	| Trig: 3 / Echo: 2 	|
 | HC-SR04 (høyre)  | –      	| Trig: 5 / Echo: 4 	|
 | Henger-signal    | –      	| 6      		|
