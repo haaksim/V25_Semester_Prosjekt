@@ -14,8 +14,8 @@ For å gi føreren mer kontekstuell informasjon, inkluderer systemet også en sa
 
 - `M1_Master/` – Kode for hovedenheten (M1)
 - `S1_Slave/` – Kode for slaveenheten (S1)
-- `images/` – Illustrasjoner og skjemaer (valgfritt)
-- `doc/` – Teknisk dokumentasjon (valgfritt)
+- `images/` – Illustrasjoner og skjemaer
+- `doc/` – Teknisk dokumentasjon
 - `README.md` – Denne filen
 - `LICENSE` – Valgfri lisens (f.eks. MIT eller GPL)
 
@@ -43,14 +43,14 @@ For å gi føreren mer kontekstuell informasjon, inkluderer systemet også en sa
 
 ## 🛠️ Maskinvarekrav
 
-- 2x Arduino (f.eks. Nano 33 BLE Sense)
+- 2x Arduino uno r4 Wi-Fi
 - 2x HC-SR04 ultralydsensorer
 - 16x2 LCD (koblet til M1)
-- 3x LED (rød, gul, grønn)
+- 4x LED (rød, gul, 2 x grønn)
 - 1x Buzzer (koblet til S1)
 - Revers-signal (bryter eller sensor)
-- Parkeringsknapp (PTC eller vanlig knapp)
-- Hengerdeteksjon (bryter eller kabel)
+- Parkeringsknapp (bryter eller sensor)
+- Hengerdeteksjon (bryter eller sensor)
 - UART (TX/RX) mellom M1 og S1
 
 ---
