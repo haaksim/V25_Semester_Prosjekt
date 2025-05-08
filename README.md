@@ -8,6 +8,8 @@ Systemet aktiveres enten automatisk når bilen settes i revers, eller manuelt ve
 
 For å gi føreren mer kontekstuell informasjon, inkluderer systemet også en sanntidsklokke (RTC) for visning av klokkeslett, samt funksjonalitet for temperaturmåling. Dette gir en mer komplett og brukervennlig opplevelse, og demonstrerer hvordan mikrokontrollerbaserte systemer kan brukes til å forbedre sikkerheten og informasjonstilgangen i kjøretøy.
 
+![Ardurino UART Figur](https://github.com/user-attachments/assets/ba471c07-a6ed-4cde-9b28-64b803ce18da)
+
 ---
 
 ## 📦 Innhold
