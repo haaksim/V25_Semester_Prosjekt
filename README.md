@@ -2,7 +2,7 @@
 
 Semesterprosjektet består av utviklingen av en Arduino-basert prototype som simulerer en ryggesensor for bil. Systemet er bygget opp av to Arduino-enheter: en hovedenhet (M1) og en slaveenhet (S1), som kommuniserer med hverandre via UART.
 
-Slaveenheten er ansvarlig for å måle avstand til hindringer på venstre og høyre side ved hjelp av ultralydsensorer. Disse målingene sendes til hovedenheten, som tolker dataene og viser relevant informasjon på en LCD-skjerm. I tillegg benyttes LED-indikatorer for å gi sjåføren visuelle varsler om avstanden til hindringer.
+Slaveenheten er ansvarlig for å måle avstand til hindringer på venstre og høyre side ved hjelp av ultralydsensorer. Disse målingene sendes til hovedenheten, som tolker dataene og viser relevant informasjon på en LCD-skjerm.
 
 Systemet aktiveres enten automatisk når bilen settes i revers, eller manuelt ved hjelp av en knapp. Hvis en tilhenger er tilkoblet, deaktiveres systemet for å unngå feilaktige varsler.
 
@@ -28,10 +28,6 @@ For å gi føreren mer kontekstuell informasjon, inkluderer systemet også en sa
 **Hovedenhet (M1):**
 - Mottar avstandsinformasjon via UART
 - Viser info på LCD (klokke, dato, eller avstand)
-- Styrer LED-varslinger basert på avstand:
-  - Rød: < 50 cm
-  - Gul: 50–99 cm
-  - Grønn: 100–149 cm
 - Aktiveres via parkeringsknapp eller reverssignal
 - Deaktiveres automatisk hvis henger er tilkoblet
 
@@ -64,15 +60,18 @@ For å gi føreren mer kontekstuell informasjon, inkluderer systemet også en sa
 | LCD RS           | 7      	| –      		|
 | LCD E            | 6      	| –      		|
 | LCD D4-D7        | 5–2    	| –      		|
-| LED Rød/Gul/Grønn| 13/12/11	| –      		|
-| Parking LED      | 10     	| –      		|
-| Parking Button   | 9      	| –      		|
+| Parking LED      | 9       	| –      		|
+| Parking Button   | 10      	| –      		|
 | Revers Signal    | 8      	| –      		|
+| Select Button    | 11      	| –      		|
+| Meny Button      | 12      	| –      		|
 | UART RX/TX       | 0/1    	| 0/1    		|
-| HC-SR04 (venstre)| –      	| Trig: 3 / Echo: 2 	|
-| HC-SR04 (høyre)  | –      	| Trig: 5 / Echo: 4 	|
-| Henger-signal    | –      	| 6      		|
-| Buzzer           | –      	| 7      		|
+| HY-SCR05 (venstre)| –      	| Trig/echo: 10	|
+| HY-SCR05 (senter venstre)  | –      	| Trig/echo: 11	|
+| HY-SCR05 (senter høyre)| –      	| Trig/echo: 12	|
+| HY-SCR05 (høyre)  | –      	| Trig/echo: 13	|
+| Henger-signal    | –      	| 1      		|
+| Buzzer           | –      	| 13      		|
 
 ---
 
